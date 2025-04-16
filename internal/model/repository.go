@@ -1,9 +1,8 @@
 package model
 
-type UserRepository interface {
-	Create(user *User) error
-	// GetByID(id int64) (*User, error)
-	// GetAll() ([]*User, error)
+import "context"
 
-	// Delete(id int64) error
+type UserRepository interface {
+	Create(ctx context.Context, user *User) error
+	GetByID(ctx context.Context, id int64) (*User, error)
 }

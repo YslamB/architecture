@@ -1,10 +1,15 @@
 package model
 
-type Result interface {
-	LastInsertId() (int64, error)
-	RowsAffected() (int64, error)
+import (
+	"context"
+	"database/sql"
+)
+
+type CommandTag interface {
+	RowsAffected() int64
 }
 
 type DB interface {
-	Exec(query string, args ...any) (Result, error)
+	Exec(ctx context.Context, query string, args ...any) (CommandTag, error)
+	QueryRow(ctx context.Context, query string, args ...any) *sql.Row
 }
